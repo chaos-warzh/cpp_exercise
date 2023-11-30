@@ -49,7 +49,6 @@ int main() {
     scanf("%d", &nums[i++]);
   }
 
-
   std::cout << find(nums, k, n) << std::endl;
 
   return 0;
