@@ -5,4 +5,8 @@ set(CMAKE_CXX_STANDARD 23)
 
 add_subdirectory(1-sort)
 
-add_executable(2023_cpp_exercise main.cpp)
+add_subdirectory(cpp01)
+
+add_executable(main main.cpp)
+
+add_executable(fat_main fat_main.cpp)
