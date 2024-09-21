@@ -8,5 +8,3 @@ add_subdirectory(1-sort)
 add_subdirectory(cpp01)
 
 add_executable(main main.cpp)
-
-add_executable(fat_main fat_main.cpp)
