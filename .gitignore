@@ -1,0 +1,8 @@
+*.exe
+*.in
+*.out
+*.o
+/.vscode/
+/cmake-build-debug/
+/build/
+/.idea/
