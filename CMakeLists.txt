@@ -4,6 +4,7 @@ project(2023_cpp_exercise)
 set(CMAKE_CXX_STANDARD 23)
 
 add_subdirectory(1-sort)
+add_subdirectory(2-linear-ds)
 
 add_subdirectory(cpp01)
 
