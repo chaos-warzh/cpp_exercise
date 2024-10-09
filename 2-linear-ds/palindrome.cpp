@@ -2,44 +2,57 @@
 // Created by DELL on 2024/10/9.
 //
 #include <iostream>
-#include <cstring>
-#include <cstdlib>
+#include <vector>
+#include <string>
+#include <algorithm>
 
 using namespace std;
-#define N_MAX 12
-#define N2_MAX 34
+
+bool isBinaryPalindrome(int num) {
+  int original = num;
+  int reversed = 0;
+  while (num > 0) {
+    reversed = (reversed << 1) | (num & 1);
+    num >>= 1;
+  }
+  return original == reversed;
+}
+
+// 生成回文数
+// 不是遍历所有数然后判断, 而是遍历数然后生成, 这样复杂度是 √n
+void generatePalindromes(vector<int>& palindromes) {
+  for (int i = 1; i < 10000; i++) {
+    string s = to_string(i);
+    string rev = string(s.rbegin(), s.rend());
+    long palindrome = stol(s + rev);
+    if (palindrome <= INT_MAX)
+      palindromes.push_back((int) palindrome);
+  }
+
+  for (int i = 1; i < 90000; i++) {
+    string s = to_string(i);
+    string rev = string(s.rbegin(), s.rend());
+    long palindrome = stol(s + rev.substr(1));
+    if (palindrome <= INT_MAX){
+      palindromes.push_back((int)palindrome);
+    }
+  }
+  sort(palindromes.begin(), palindromes.end()); // 排序
+  palindromes.erase(unique(palindromes.begin(), palindromes.end()), palindromes.end()); // 去重
+}
 
 int main() {
   int W;
-  scanf("%d", &W);
-  char s1[N_MAX];
-  char s2[N_MAX];
-  char ss1[N2_MAX];
-  char ss2[N2_MAX];
+  cin >> W;
 
-  bool is_pali = false;
-  bool is_pali2 = false;
+  vector<int> palindromes;
+  generatePalindromes(palindromes);
 
-  for (int i = W; i < INT_MAX; i++) {
-    itoa(i, s1, 10);
-    itoa(i, s2, 10);
-    strrev(s1);
-    if (strcmp(s1, s2) == 0) {
-      is_pali = true;
-    }
-    if (!is_pali) continue;
-
-    itoa(i, ss1, 2);
-    itoa(i, ss2, 2);
-    strrev(ss1);
-    if (strcmp(ss1, ss2) == 0) {
-      is_pali2 = true;
-    }
-    if (is_pali2) {
-      cout << i;
+  for (int pal : palindromes) {
+    if (pal > W && isBinaryPalindrome(pal)) {
+      cout << pal;
       return 0;
     }
-    is_pali = false;
   }
 
   return 0;
