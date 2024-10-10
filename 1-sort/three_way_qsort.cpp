@@ -14,26 +14,28 @@ using namespace std;
 class Solution {
   public:
   void sortColors(vector<int>& nums) {
-    int head = 0, tail = nums.size();
-    for (int i = head; i < tail; i++) {
-      if (nums[i] == 0) {
+    int head = -1;
+    int tail = (int)nums.size() - 1;
+
+    for (int i = 0; i <= tail; i++) {
+      if (nums[i] == 0 && head != -1) {
         swap(nums[i], nums[head]);
         head++;
-      } else if (nums[i] == 2) {
+      } else if (nums[i] != 0 && head == -1) {
+        head = i;
+      }
+      if (nums[i] == 2) {
         swap(nums[i], nums[tail]);
         tail--;
-      } else {
-        continue;
+        i--;
       }
-      i--;
     }
   }
 };
 
 int main() {
   auto solution(std::make_unique<Solution>());
-  int vec[5] = {0, 1, 2, 1, 0};
-  vector<int> nums(vec, vec + 5);
+  vector<int> nums = {2, 0, 1};
   solution->sortColors(nums);
   for (int i : nums) {
     cout << i << endl;
