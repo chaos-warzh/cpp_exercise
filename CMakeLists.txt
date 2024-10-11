@@ -7,5 +7,6 @@ add_subdirectory(1-sort)
 add_subdirectory(2-linear-ds)
 
 add_subdirectory(cpp01)
+add_subdirectory(cpp02)
 
 add_executable(main main.cpp)
