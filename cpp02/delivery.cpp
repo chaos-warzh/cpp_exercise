@@ -4,6 +4,7 @@
 #include <cstdio>
 #include <vector>
 #include <climits>
+#include <cstring>
 
 using namespace std;
 
@@ -16,6 +17,7 @@ int n;                // order nums
 int m;               // spots nums
 int rest[MAX_N];        // restaurant
 int cust[MAX_N];        // customer
+int dp[(1 << MAX_N) + 1][(1 << MAX_N) + 1][MAX_M];
 
 void floyd() {
   for (int k = 0; k < m; k++)
@@ -34,6 +36,10 @@ int dfs(int mask_fetch, int mask_send, int last) {
     return 0;
   }
 
+  if (dp[mask_fetch][mask_send][last] != -1) {
+    return dp[mask_fetch][mask_send][last];
+  }
+
   int ans = INF;
 
   for (int i = 0; i < n; i++) {
@@ -50,7 +56,7 @@ int dfs(int mask_fetch, int mask_send, int last) {
     }
   }
 
-  return ans;
+  return dp[mask_fetch][mask_send][last] = ans;
 }
 
 int main() {
@@ -72,6 +78,8 @@ int main() {
   }
 
   floyd();
+
+  memset(dp, -1, sizeof(dp));
 
   int result = dfs(0, 0, 0);
 
