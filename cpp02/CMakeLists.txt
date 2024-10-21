@@ -9,3 +9,5 @@ add_executable(delivery delivery.cpp)
 add_executable(brainfk brainfk.cpp)
 
 add_executable(disjoint_intervals disjoint_intervals.cpp)
+
+add_executable(buying buying.cpp)
