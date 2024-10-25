@@ -5,8 +5,11 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <bitset>
 
 using namespace std;
+
+#define N 100
 
 int main() {
     int n;
@@ -17,6 +20,9 @@ int main() {
 
     vector<vector<bool>> R(n, vector<bool>(n, false));
     vector<vector<bool>> S(n, vector<bool>(n, false));
+
+
+    auto path = vector<vector<vector<bitset<N>>>>(n, vector<vector<bitset<N>>>(n, vector<bitset<N>>(0)));
 
 // R_input
     for (int i = 0; i < n; ++i) {
@@ -42,6 +48,9 @@ int main() {
             for (int c = 0; c < n; ++c) {
                 if (R[a][c] && S[c][b]) {
                     T[a][b] = true;
+                    bitset<N> bs;
+                    bs.set(c);
+                    path[a][b].push_back(bs);
                     break;
                 }
             }
@@ -52,7 +61,17 @@ int main() {
         for (int b = 0; b < n; ++b) {
             for (int c = 0; c < n; ++c) {
                 if (T[b][a] && T[a][c]) {
-                    T[b][c] = true;
+                    // CHECK
+                    for (const auto& pathBA : path[b][a]) {
+                        for (const auto& pathAC : path[a][c]) {
+                            bitset<N> newPath = pathBA | pathAC;
+                            if ((pathBA & pathAC).none() && (!newPath[a])) {
+                                newPath.set(a);
+                                path[b][c].push_back(newPath);
+                                T[b][c] = true;
+                            }
+                        }
+                    }
                 }
             }
         }
