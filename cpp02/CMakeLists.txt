@@ -14,4 +14,4 @@ add_executable(buying buying.cpp)
 
 add_executable(super_closure super_closure.cpp)
 
-add_executable(main main.cpp)
+add_executable(cpp02main main.cpp)
