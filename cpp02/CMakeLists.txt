@@ -13,3 +13,5 @@ add_executable(disjoint_intervals disjoint_intervals.cpp)
 add_executable(buying buying.cpp)
 
 add_executable(super_closure super_closure.cpp)
+
+add_executable(main main.cpp)
