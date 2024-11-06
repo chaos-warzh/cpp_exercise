@@ -20,16 +20,23 @@ int main() {
   }
 
   cout << "max: " << *max_element(v.begin(), v.end()) << endl;
-  cout << "max: " << *std::ranges::max_element(v) << endl;
+  cout << "max: " << *ranges::max_element(v) << endl;
 
   cout << "sum: " << accumulate(v.begin(), v.end(), 0) << endl;
 
-  sort(v.begin(), v.end());
-  std::ranges::sort(v);
+//  sort(v.begin(), v.end());
+  ranges::sort(v);
 
-  std::ranges::for_each(v, [](auto x) {
+  ranges::for_each(v, [](auto x) {
     cout << x << ' '; }
   );
+  puts("");
 
+  // erase_if (like removeIf in Java)
+  erase_if(v, [](int x){ return x % 2 == 0; } );
+
+  ranges::for_each(v, [](auto x) {
+    cout << x << ' '; }
+  );
   return 0;
 }
