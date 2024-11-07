@@ -22,6 +22,10 @@ int main() {
 
   l.sort();
   ranges::for_each(l, [](int i){ cout << i << ' '; });
+  puts("");
+
+  auto result = ranges::find_if(l, [](int i){ return i % 2 == 0; });
+  cout << *result << endl;
 
   return 0;
 }
