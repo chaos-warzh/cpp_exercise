@@ -27,5 +27,7 @@ int main() {
   auto result = ranges::find_if(l, [](int i){ return i % 2 == 0; });
   cout << *result << endl;
 
+  long long even_count = ranges::count_if(l, [](int i){ return i % 2 == 0; });
+  cout << even_count << endl;
   return 0;
 }
