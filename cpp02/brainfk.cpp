@@ -5,6 +5,7 @@
 #include <string>
 #include <stack>
 #include <vector>
+#include <cstdint>
 
 using namespace std;
 
