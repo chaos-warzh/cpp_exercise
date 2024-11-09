@@ -8,6 +8,8 @@ add_subdirectory(2-linear-ds)
 add_subdirectory(3-strings)
 add_subdirectory(4-linear-ds-more)
 
+add_subdirectory(alg01)
+
 add_subdirectory(cpp01)
 add_subdirectory(cpp02)
 
