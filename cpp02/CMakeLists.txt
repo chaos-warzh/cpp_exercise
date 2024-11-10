@@ -17,3 +17,5 @@ add_executable(super_closure super_closure.cpp)
 add_executable(cpp02main main.cpp)
 
 add_executable(wooden wooden.cpp)
+
+add_executable(mines mines.cpp)
