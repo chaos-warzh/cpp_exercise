@@ -1,0 +1,1 @@
+add_executable(matrix_pow matrix_pow.cpp)

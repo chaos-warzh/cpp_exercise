@@ -12,6 +12,7 @@ add_subdirectory(alg01)
 
 add_subdirectory(cpp01)
 add_subdirectory(cpp02)
+add_subdirectory(cpp03)
 
 add_subdirectory(stl)
 add_subdirectory(oo)
