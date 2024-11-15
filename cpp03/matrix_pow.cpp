@@ -1,72 +1,91 @@
 //
 // Created by DELL on 2024/11/15.
 //
-#include <cstdio>
+
+#include <iostream>
 
 using namespace std;
 
 #define MOD ((int)(1e9 + 7))
 
-typedef long long ll;
+class Matrix {
+  public:
+  int size = 5;
+  long long mat[5][5];
 
-ll res[][5] = {{1, 0, 0, 0, 0},
-               {0, 1, 0, 0 , 0},
-               {0, 0, 1, 0, 0},
-               {0, 0, 0, 1, 0},
-               {0, 0, 0, 0, 1},
-               };
-ll tmp[5][5];
-ll matrix[5][5];
+  Matrix(int n): size(n) {
+    for (int i = 0; i < size; i++)
+      for (int j = 0; j < size; j++)
+        mat[i][j] = 0;
+  }
 
-int n, p;
+  Matrix(const Matrix &other): size(other.size) {
+    for (int i = 0; i < size; i++)
+      for (int j = 0; j < size; j++)
+        mat[i][j] = other.mat[i][j];
+  }
 
-void matrix_mul(const ll (&a)[5][5], const ll (&b)[5][5], ll (*res_p)[5][5]) {
-
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-      ll sum = 0;
-      for (int k = 0; k < n; k++) {
-        sum += (a[i][k] * b[k][j]) % MOD;
-        sum %= MOD;
+  Matrix operator*(const Matrix &b) const {
+    Matrix res(size);
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        res.mat[i][j] = 0;
+        for (int k = 0; k < size; k++) {
+          res.mat[i][j] += (mat[i][k] * b.mat[k][j]) % MOD;
+          res.mat[i][j] %= MOD;
+        }
       }
-      (*res_p)[i][j] = sum;
     }
-  }
-}
-
-int main() {
-
-  scanf("%d%d", &n, &p);
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-      scanf("%lld", &matrix[i][j]);
-    }
+    return res;
   }
 
-  ll (*res_ptr)[5][5] = &res;
-  ll (*other_ptr)[5][5] = &tmp;
-  ll (*matrix_ptr)[5][5] = &matrix;
+  static Matrix input(int n) {
+    Matrix matrix(n);
+    for (int i = 0; i < n; i++) {
+      for (int j = 0; j < n; j++) {
+        cin >> matrix.mat[i][j];
+      }
+    }
+    return matrix;
+  }
 
+  void print() const {
+    for (int i = 0; i < size; i++) {
+      for (int j = 0; j < size; j++) {
+        cout << mat[i][j] << " ";
+      }
+      cout << endl;
+    }
+  }
+
+  static Matrix identity(int sz) {
+    Matrix res(sz);
+    for (int i = 0; i < sz; i++)
+      res.mat[i][i] = 1;
+    return res;
+  }
+};
+
+Matrix matrix_pow(Matrix &matrix, int p) {
+  Matrix res = Matrix::identity(matrix.size);
 
   while (p) {
     if (p & 1) {
-      matrix_mul(*res_ptr, *matrix_ptr, other_ptr);
-      ll (*tmp_res_ptr)[5][5] = res_ptr;
-      res_ptr = other_ptr;
-      other_ptr = tmp_res_ptr;
+      res = res * matrix;
     }
-    matrix_mul(*matrix_ptr, *matrix_ptr, other_ptr);
-    ll (*tmp_matrix_ptr)[5][5] = matrix_ptr;
-    matrix_ptr = other_ptr;
-    other_ptr = tmp_matrix_ptr;
+    matrix = matrix * matrix;
     p >>= 1;
   }
+  return res;
+}
 
-  for (int i = 0; i < n; i++) {
-    for (int j = 0; j < n; j++) {
-      printf("%lld ", (*res_ptr)[i][j]);
-    }
-    puts("");
-  }
+int main() {
+  int n, p;
+  cin >> n >> p;
+
+  Matrix matrix = Matrix::input(n);
+  Matrix result = matrix_pow(matrix, p);
+  result.print();
+
   return 0;
 }
