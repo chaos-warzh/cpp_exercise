@@ -4,11 +4,16 @@
 #include <cstdio>
 #include <vector>
 #include <numeric>
+#include <stack>
 
 using namespace std;
-long long getmax(int l, int r);
+void getmax();
 
-vector<int> nums;
+vector<int> heights;
+stack<int> mono_stack;
+
+#define MAX(a, b) ((a > b) ? a : b)
+int max_area = -1;
 
 int main() {
   int n;
@@ -16,21 +21,16 @@ int main() {
 
   for (int i = 0; i < n; i++) {
     int ns;
-    scanf("%d", ns);
-    nums.push_back(ns);
+    scanf("%d", &ns);
+    heights.push_back(ns);
   }
-  printf("%lld\n", getmax(0, n));
+  getmax();
+  printf("%d\n", max_area);
   return 0;
 }
 
-long long getmax(int l, int r) {
-  if (l <= r) return 0;
-  if (l + 1 == r) {
-    return nums[l];
-  } else {
-    long long max1 = getmax(l, midpoint(l, r));
-    long long max2 = getmax(midpoint(l, r) + 1, r);
-    return std::max(max1, max2);
+void getmax() {
+  for (int i = 0; i < mono_stack.size(); i++) {
+    int value = heights[i];
   }
-
 }
