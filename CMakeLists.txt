@@ -19,5 +19,4 @@ add_subdirectory(stl)
 add_subdirectory(oo)
 
 
-add_executable(main main.cpp
-        cpp04/int_stream.cpp)
+add_executable(main main.cpp)
