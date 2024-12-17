@@ -11,22 +11,20 @@ class TextEditor {
 public:
     TextEditor();
 
-    ~TextEditor();
-
     void addText(const std::string& text);
 
     void deleteText(int length);
 
     void moveCursor(int steps);
 
-    void copy(int length);
+    void copy(int length) const;
 
     void paste();
 
-    void print();
+    void print() const;
 
 private:
-    std::list<char> *text;
+    std::list<char> text_list;
 
     std::list<char>::iterator cursor;
 };
