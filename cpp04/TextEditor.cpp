@@ -3,12 +3,10 @@
 //
 #include "TextEditor.h"
 
-#include <algorithm>
 #include <iostream>
 
 using namespace std;
 
-string buf;
 
 TextEditor::TextEditor() {
     // TODO: 用空文本初始化
@@ -19,8 +17,8 @@ TextEditor::TextEditor() {
 
 void TextEditor::addText(const string& text) {
     // TODO: 将 text 添加到光标所在位置
-    for (auto it = text.begin(); it != text.end(); ++it) {
-        text_list.insert(cursor, *it);
+    for (auto it : text) {
+        text_list.insert(cursor, it);
     }
 }
 
@@ -33,7 +31,7 @@ void TextEditor::deleteText(int length) {
         }
         --first;
     }
-    text_list.erase(first, cursor);
+    cursor = text_list.erase(first, cursor);
 }
 
 void TextEditor::moveCursor(int steps) {
@@ -58,11 +56,11 @@ void TextEditor::moveCursor(int steps) {
     }
 }
 
-void TextEditor::copy(int length) const {
+void TextEditor::copy(int length) {
     // TODO: 复制光标左侧 length 个字符
     auto iter = cursor;
-    buf = "";
-    if (iter == text_list.begin()) {
+    buf.clear();
+    if (iter== text_list.begin()) {
         return;
     }
     --iter;
@@ -84,8 +82,8 @@ void TextEditor::paste() {
 
 void TextEditor::print() const {
     // TODO: 输出当前编辑器内容
-    for_each(text_list.begin(), text_list.end(), [](char c) {
+    for (auto c : text_list) {
         cout << c;
-    });
-    puts("");
+    }
+    cout << endl;
 }

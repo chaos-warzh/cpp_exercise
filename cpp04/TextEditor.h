@@ -17,7 +17,7 @@ public:
 
     void moveCursor(int steps);
 
-    void copy(int length) const;
+    void copy(int length);
 
     void paste();
 
@@ -27,6 +27,8 @@ private:
     std::list<char> text_list;
 
     std::list<char>::iterator cursor;
+
+    std::string buf;
 };
 
 #endif //TEXTEDITOR_H
