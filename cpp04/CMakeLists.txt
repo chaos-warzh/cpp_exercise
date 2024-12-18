@@ -5,3 +5,5 @@ add_executable(shared_mem shared_mem.cpp)
 add_executable(editorMain EditorMain.cpp TextEditor.cpp)
 
 add_executable(sort sort.cpp)
+
+add_executable(comment_system comment_system.cpp)
