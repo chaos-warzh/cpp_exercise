@@ -7,3 +7,5 @@ add_executable(editorMain EditorMain.cpp TextEditor.cpp)
 add_executable(sort sort.cpp)
 
 add_executable(comment_system comment_system.cpp)
+
+add_executable(cards cards.cpp)
