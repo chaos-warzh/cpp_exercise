@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include <cstdio>
+#include <numeric>
 #include <vector>
 
 using namespace std;
@@ -34,7 +35,8 @@ int get_min() {
     int max = max_n;
     // k cards need
     while (min < max) {
-        int mid = ((min + max) >> 1);
+        int mid = midpoint(min, max);
+        // mid = min + (max - min) / 2
         if (check(mid)) { // able for mid score
             max = mid;
         } else { // unable to have such a score
