@@ -59,12 +59,17 @@ int main() {
           REGISTER_TEST_CASE(TEST_9), REGISTER_TEST_CASE(TEST_10),
       };
 
-  std::string test_case_name;
-  std::cin >> test_case_name;
-  auto it = test_functions_by_name.find(test_case_name);
-  assert(it != test_functions_by_name.end());
-  auto fn = it->second;
-  fn();
+  for (const auto &pair : test_functions_by_name) {
+    std::cout << pair.first << std::endl;
+    pair.second();
+  }
+  // std::string test_case_name;
+  // std::cin >> test_case_name;
+  // auto it = test_functions_by_name.find(test_case_name);
+  // assert(it != test_functions_by_name.end());
+  // auto fn = it->second;
+  // fn();
+
   return 0;
 }
 

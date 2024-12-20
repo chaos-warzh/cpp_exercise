@@ -12,8 +12,13 @@ class Semaphore {
     private:
         int count;
 
+        std::mutex mutexS;
+
+        std::condition_variable cvS; // used to notify
+
+
     public:
-        Semaphore(int count) : count(count) {};
+        Semaphore(int count);
         void P();
         void V();
 };

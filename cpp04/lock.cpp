@@ -24,12 +24,12 @@ std::atomic<int> atomic_sum(0);
 void init_sum(int value) {
     // TODO: Task1-2 set the value of `atomic_sum` atomically
     // The purpose of defining functions in this way is for teaching purposes
-    atomic_sum = value;
+    atomic_sum.store(value);
 }
 
 void atomic_increment(int v) {
     // TODO: Task1-2 increment the variable `sum` by v
-    atomic_sum += v;
+    atomic_sum.fetch_add(v);
 }
 
 std::mutex bracket_mtx;
@@ -44,10 +44,8 @@ int depth = 0;
 
 void produce(int k) { // depth no more than k
     // TODO: Task2 Atomically put an opening bracket '(' at the end of 'brackets' at a time.
-    std::unique_lock<std::mutex> lock(mutex);
-    if (depth >= k) {
-        cv.wait(lock);
-    }
+    std::unique_lock<std::mutex> lock(bracket_mtx);
+    cv.wait(lock, [k]() { return depth < k;} );
     // able
     depth++;
     brackets += "(";
@@ -56,10 +54,10 @@ void produce(int k) { // depth no more than k
 
 void consume([[maybe_unused]] int k) {
     // TODO: Task2 Atomically put an opening bracket ')' at the end of 'brackets' at a time.
-    std::unique_lock<std::mutex> lock(mutex);
-    if (depth > 0) {
-        cv.wait(lock);
-    }
+    std::unique_lock<std::mutex> lock(bracket_mtx);
+
+    cv.wait(lock, []() { return depth > 0;} );
+
     depth--;
     brackets += ")";
     cv.notify_all();

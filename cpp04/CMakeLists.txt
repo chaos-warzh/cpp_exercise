@@ -10,4 +10,4 @@ add_executable(comment_system comment_system.cpp)
 
 add_executable(cards cards.cpp)
 
-add_executable(ConcMain ConcMain.cpp Semaphore.cpp lock.cpp)
+add_executable(ConcMain  Semaphore.cpp ConcMain.cpp lock.cpp)
