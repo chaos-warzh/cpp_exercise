@@ -17,6 +17,7 @@ add_subdirectory(cpp04)
 
 add_subdirectory(stl)
 add_subdirectory(oo)
+add_subdirectory(design-patterns)
 
 
 add_executable(main main.cpp)
